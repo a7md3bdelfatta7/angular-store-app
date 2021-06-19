@@ -34,14 +34,7 @@ export class Tree {
             this.addNode(this.head, node);
         } else {
             this.head = node;
-            console.log("insert head " + element.name);
         }
-
-        // if (this.numberOfLeftSideNodes(this.head) > this.numberOfRightSideNodes(this.head)) {
-        //     this.addNode(this.head.right, element);
-        // } else {
-        //     this.addNode(this.head.left, element);
-        // }
     }
 
     addNode(parent: Node, element: Node) {
@@ -50,14 +43,12 @@ export class Tree {
                 this.addNode(parent.right, element);
             } else {
                 parent.right = element;
-                console.log("insert right " + element.element.name);
             }
         } else {
             if (parent.left) {
                 this.addNode(parent.left, element);
             } else {
                 parent.left = element;
-                console.log("insert left " + element.element.name);
             }
         }
     }
