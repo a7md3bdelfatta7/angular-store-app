@@ -1,19 +1,9 @@
-enum Gender {
-    male = 'male',
-    female = 'female'
-}
+/* This is implementation for balanced tree */
 
-
-interface Student {
-    name: string,
-    birhdate: string,
-    gender: Gender
-}
-
-class Node {
-    element: Student;
-    left: Node;
-    right: Node;
+class Node<T> {
+    element: T;
+    left: Node<T>;
+    right: Node<T>;
     constructor(element: Student) {
         this.element = element;
         this.left = null;
@@ -21,15 +11,15 @@ class Node {
     }
 }
 
-export class Tree {
-    head: Node;
+export class Tree<T> {
+    head: Node<T>;
 
     constructor() {
         this.head = null;
     }
 
-    add(element: Student) {
-        let node = new Node(element);
+    add(element: T) {
+        let node = new Node<T>(element);
         if (this.head) {
             this.addNode(this.head, node);
         } else {
@@ -37,7 +27,7 @@ export class Tree {
         }
     }
 
-    addNode(parent: Node, element: Node) {
+    addNode(parent: Node<T>, element: Node<T>) {
         if (this.numberOfChilds(parent.left) > this.numberOfChilds(parent.right)) {
             if (parent.right) {
                 this.addNode(parent.right, element);
@@ -70,7 +60,7 @@ export class Tree {
         }
     }
 
-    traverseTree(parent: Node) {
+    traverseTree(parent: Node<T>) {
         console.log(parent.element);
         if (parent.left) {
             this.traverseTree(parent.left)

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Tree } from './tree';
+import { LinkedList } from './ds/linked-list';
+import { Gender, Student } from './student.model';
+import { Tree } from './ds/tree';
+import { BST } from './ds/binary-search-tree';
 
 @Component({
   selector: 'app-testing',
@@ -11,26 +14,76 @@ export class TestingComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    var ll = new LinkedList();
+    var ll = new LinkedList<Student>();
     console.log(ll.isEmpty());
 
     let s1: Student = {
+      id: 1,
       name: "Ahmed Abdelfattah 1",
       gender: Gender.male,
       birhdate: "20/9/1993"
     }
 
     let s2: Student = {
+      id: 2,
       name: "Ahmed Abdelfattah 2",
       gender: Gender.male,
       birhdate: "20/9/1993"
     }
 
     let s3: Student = {
+      id: 3,
       name: "Ahmed Abdelfattah 3",
       gender: Gender.male,
       birhdate: "20/9/1993"
     }
+
+    let s4: Student = {
+      id: 4,
+      name: "Ahmed Abdelfattah 4",
+      gender: Gender.male,
+      birhdate: "20/9/1993"
+    }
+
+
+    let s5: Student = {
+      id: 5,
+      name: "Ahmed Abdelfattah 5",
+      gender: Gender.male,
+      birhdate: "20/9/1993"
+    }
+
+    let s6: Student = {
+      id: 6,
+      name: "Ahmed Abdelfattah 6",
+      gender: Gender.male,
+      birhdate: "20/9/1993"
+    }
+
+    let s7: Student = {
+      id: 7,
+      name: "Ahmed Abdelfattah 7",
+      gender: Gender.male,
+      birhdate: "20/9/1993"
+    }
+
+    let s8: Student = {
+      id: 8,
+      name: "Ahmed Abdelfattah 8",
+      gender: Gender.male,
+      birhdate: "20/9/1993"
+    }
+
+    let s9: Student = {
+      id: 9,
+      name: "Ahmed Abdelfattah 9",
+      gender: Gender.male,
+      birhdate: "20/9/1993"
+    }
+
+
+
+
 
 
 
@@ -46,186 +99,49 @@ export class TestingComponent implements OnInit {
 
     // ll.printList();
 
-    var tree = new Tree();
+    var tree = new StudentBST();
+    /* 
+    Let us create following BST
 
-    tree.add(s1);
-    tree.add(s2);
-    tree.add(s3);
-
-    tree.add(s1);
-    tree.add(s2);
-    tree.add(s3);
-
+              5
+          /       \
+         3         8
+       /   \     /   \
+      2     4   7    9
+     /         /
+    1         6
     
-    tree.add(s1);
-    tree.add(s2);
+    */
+
+    tree.add(s5);
     tree.add(s3);
+    tree.add(s4);
+    tree.add(s2);
+    tree.add(s1);
+    tree.add(s8);
+    tree.add(s7);
+    tree.add(s6);
+    tree.add(s9);
+
+
+
+
+
 
     tree.traverse();
 
-    
+
   }
 
 
 
 }
 
-class Queue {
 
-  items;
-  size = 10;
-  constructor() {
-    this.items = new Array(this.size);
-  }
+class StudentBST extends BST<Student>{
 
-  enqueue(ele) {
-    this.items.push(ele);
-  }
-
-  dequeue() {
-    if (this.isEmpty) {
-      return null;
-    }
-    return this.items.shift();
-  }
-
-  isEmpty() {
-    return this.items.length == 0;
-  }
-
-  isFull() {
-    return this.items.length == this.size;
-  }
-
-  peek() {
-    return this.items.length > 0 ? this.items[this.items.length - 1] : null;
+  isGreater(ele1: Student, ele2: Student): boolean {
+    return ele2.id > ele1.id;
   }
 
 }
-
-enum Gender {
-  male = 'male',
-  female = 'female'
-}
-
-export interface Student {
-  name: string,
-  birhdate: string,
-  gender: Gender
-}
-
-class Node {
-  element: Student;
-  next: Node;
-  constructor(element: Student) {
-    this.element = element;
-    this.next = null
-  }
-}
-
-class LinkedList {
-  head: Node;
-  size: number;
-  constructor() {
-    this.head = null;
-    this.size = 0;
-  }
-
-  add(element: Student) {
-    var node = new Node(element);
-    if (this.head == null) {
-      this.head = node;
-    } else {
-      var lastElementRef = this.head;
-      while (lastElementRef.next != null) {
-        lastElementRef = lastElementRef.next;
-      }
-      lastElementRef.next = node;
-    }
-    this.size++;
-  }
-
-  removeElement(element: Student) {
-    var current = this.head;
-    var prev = null;
-    let tempCurrent = null;
-    while (current) {
-      if (current.element == element) {
-        if (prev) {
-          prev.next = current.next;
-        } else {
-          this.head = current.next;
-        }
-        this.size--;
-        return current.element;
-      }
-      prev = current;
-      current = current.next;
-    }
-    return -1;
-  }
-
-  insertAt(element, index) {
-    var node = new Node(element);
-    if (index >= 0 && index < this.size) {
-      if (index == 0) {
-        node.next = this.head;
-        this.head = node;
-      } else {
-        var current = this.head;
-        for (var i = 0; i < index - 1; i++) {
-          current = current.next;
-        }
-        node.next = current.next;
-        current.next = node;
-      }
-
-      this.size++;
-    } else {
-      return "out of list range";
-    }
-  }
-
-  isEmpty() {
-    return this.size == 0;
-  }
-
-  printList() {
-    var current = this.head;
-    while (current) {
-      console.log(current.element);
-      current = current.next;
-    }
-  }
-
-  // functions to be implemented
-  // add(element)
-  // insertAt(element, location)
-  // removeFrom(location)
-  // removeElement(element)
-
-  // Helper Methods
-  // isEmpty
-  // size_Of_List
-  // PrintList
-
-}
-
-
-
-
-
-// function viewBinaryNumber(num) {
-//     var item = ["1"];
-//     for (var i = 0; i < Math.floor(num / 2); i++) {
-//         item.push(item[i] + "0");
-//         item.push(item[i] + "1");
-//     }
-//     return item.splice(0, num);
-// }
-
-
-// console.log(viewBinaryNumber(80));
-
-
-
