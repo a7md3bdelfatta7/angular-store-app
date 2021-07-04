@@ -4,7 +4,7 @@ class Node<T> {
     element: T;
     left: Node<T>;
     right: Node<T>;
-    constructor(element: Student) {
+    constructor(element: T) {
         this.element = element;
         this.left = null;
         this.right = null;
@@ -43,7 +43,7 @@ export class Tree<T> {
         }
     }
 
-    numberOfChilds(parent: Node): number {
+    numberOfChilds(parent: Node<T>): number {
         if (parent && (parent.left || parent.right)) {
             return 1 + this.numberOfChilds(parent.left) + this.numberOfChilds(parent.right);
         } else if (parent) {
